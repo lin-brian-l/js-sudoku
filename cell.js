@@ -1,5 +1,5 @@
-new Cell {
-	constructor(row, column, grid, values) {
+class Cell {
+	constructor(row, column, grid, value) {
 		this.row = row
 		this.column = column
 		this.grid = grid
@@ -13,3 +13,5 @@ new Cell {
 		return [value]
 	}
 }
+
+module.exports = Cell 
