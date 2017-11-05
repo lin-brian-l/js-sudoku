@@ -118,6 +118,32 @@ describe("Board", function() {
 
   });
 
+  describe("Creates an array of cells in the same grid", function() {
+
+    beforeEach(function(){
+      return gridArray = board.cellArrayFromGrid(0);
+    });
+
+    it("creates an array of length 9", function() {
+      assert.equal(gridArray.length, 9, "Array of cells should have length equal to 9");
+    });
+
+    it("creates an array of cell objects", function() {
+      var isCellObject = function(cell) {
+        return cell instanceof Cell; 
+      }
+      assert.equal(gridArray.every(isCellObject), true, "Element is an instance of Cell");
+    });
+
+    it("creates an array of cells with the same column", function() {
+      var hasSameGrid = function(cell) {
+        return cell.grid === 0;
+      };
+      assert.equal(gridArray.every(hasSameGrid), true, "Elements have the same grid");
+    });
+
+  });
+
   describe("Creates an array of known values for the first row", function() {
 
     beforeEach(function(){

@@ -38,7 +38,9 @@ class Board {
   };
 
   cellArrayFromGrid(grid) {
-
+    return this.cells.filter((cell) => {
+      return cell.grid === grid;
+    });
   };
 
   makeKnownArray(array) {
