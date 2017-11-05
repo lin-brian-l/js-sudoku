@@ -24,6 +24,29 @@ class Board {
   determineGrid(index) {
     return Math.floor(this.determineRow(index) / 3) * 3 + Math.floor(this.determineColumn(index) / 3);
   };
+
+  cellArrayFromRow(row) {
+    return this.cells.filter((cell) => {
+      return cell.row === row;
+    });
+  };
+
+  makeKnownArray(array) {
+    var knownArray = [];
+    array.forEach((cell) => {
+      if (cell.values.length === 1) {
+        knownArray = knownArray.concat(cell.values);
+      }
+    })
+    return knownArray;
+  };
+
+  subtractKnowns(knownArray, cell) {
+    return cell.values.filter((value) => {
+      return knownArray.indexOf(value) < 0;
+    });
+  }
+
 };
 
 module.exports = Board;
