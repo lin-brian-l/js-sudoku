@@ -31,8 +31,14 @@ class Board {
     });
   };
 
+  cellArrayFromColumn(column) {
+    return this.cells.filter((cell) => {
+      return cell.column === column
+    })
+  }
+
   makeKnownArray(array) {
-    var knownArray = [];
+    let knownArray = [];
     array.forEach((cell) => {
       if (cell.values.length === 1) {
         knownArray = knownArray.concat(cell.values);
@@ -45,8 +51,18 @@ class Board {
     return cell.values.filter((value) => {
       return knownArray.indexOf(value) < 0;
     });
-  }
+  };
 
+  subtractRowKnowns(row) {
+    var that = this
+    let rowArray = this.cellArrayFromRow(row);
+    let knownArray = this.makeKnownArray(rowArray);
+    rowArray.forEach((cell) => {
+      if (cell.values.length > 1) {
+        cell.values = this.subtractKnowns(knownArray, cell);
+      }
+    });
+  };
 };
 
 module.exports = Board;

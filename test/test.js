@@ -117,4 +117,19 @@ describe("Board", function() {
 
   });
 
+  describe("Subtracts known and unknown values for a whole row", function() {
+
+    beforeEach(function(){
+      return board.subtractRowKnowns(8)
+    });
+
+    it("Will iterate through each cell in the row", function() {
+      assert.deepStrictEqual(board.cells[78].values, [9], "Known values are not altered.");
+      assert.deepStrictEqual(board.cells[80].values, [1, 2, 4, 5, 7], "Unknown values are altered.");
+    });
+
+  });
+
+// "1-58-2----9--764-52--4--819-19--73-6762-83-9-----61-5---76---3-43--2-5-16--3-89--"
+
 });
