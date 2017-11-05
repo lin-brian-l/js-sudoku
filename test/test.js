@@ -92,6 +92,32 @@ describe("Board", function() {
 
   });
 
+  describe("Creates an array of cells in the same column", function() {
+
+    beforeEach(function(){
+      return columnArray = board.cellArrayFromColumn(0);
+    });
+
+    it("creates an array of length 9", function() {
+      assert.equal(columnArray.length, 9, "Array of cells should have length equal to 9");
+    });
+
+    it("creates an array of cell objects", function() {
+      var isCellObject = function(cell) {
+        return cell instanceof Cell; 
+      }
+      assert.equal(columnArray.every(isCellObject), true, "Element is an instance of Cell");
+    });
+
+    it("creates an array of cells with the same column", function() {
+      var hasSameColumn = function(cell) {
+        return cell.column === 0;
+      };
+      assert.equal(columnArray.every(hasSameColumn), true, "Elements have the same column");
+    });
+
+  });
+
   describe("Creates an array of known values for the first row", function() {
 
     beforeEach(function(){

@@ -33,9 +33,13 @@ class Board {
 
   cellArrayFromColumn(column) {
     return this.cells.filter((cell) => {
-      return cell.column === column
-    })
-  }
+      return cell.column === column;
+    });
+  };
+
+  cellArrayFromGrid(grid) {
+
+  };
 
   makeKnownArray(array) {
     let knownArray = [];
