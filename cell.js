@@ -12,7 +12,6 @@ class Cell {
 		} else {
 			return [parseInt(value)];
 		}
-
 	};
 };
 

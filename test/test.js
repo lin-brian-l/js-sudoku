@@ -1,3 +1,5 @@
+// Run with "yarn run test"
+
 const Cell = require("../cell.js");
 const Board = require("../board.js");
 const assert = require("assert");
@@ -57,7 +59,7 @@ describe("Board", function() {
       assert.deepStrictEqual(board.cells[80].values, [1, 2, 3, 4, 5, 6, 7, 8, 9], "Cell values should be equal to [1, 2, 3, 4, 5, 6, 7, 8, 9]");
     });
 
-    it("makes an fourteenth cell with column of 4, row of 1, grid of 5, and value of 7", function() {
+    it("makes a fourteenth cell with column of 4, row of 1, grid of 5, and value of 7", function() {
       assert.equal(board.cells[13].row, 1, "Cell row should be equal to 8");
       assert.equal(board.cells[13].column, 4, "Cell column should be equal to 8");
       assert.equal(board.cells[13].grid, 1, "Cell grid should be equal to 1");
@@ -69,7 +71,7 @@ describe("Board", function() {
   describe("Creates an array of cells in the same row", function() {
 
     beforeEach(function(){
-      return rowArray = board.cellArrayFromRow(0);
+      rowArray = board.cellArrayFromRow(0);
     });
 
     it("creates an array of length 9", function() {
@@ -148,7 +150,7 @@ describe("Board", function() {
 
     beforeEach(function(){
       rowArray = board.cellArrayFromRow(0);
-      return knownArray = board.makeKnownArray(rowArray)
+      knownArray = board.makeKnownArray(rowArray)
     });
 
     it("creates an array of length 4", function() {
@@ -172,12 +174,47 @@ describe("Board", function() {
   describe("Subtracts known and unknown values for a whole row", function() {
 
     beforeEach(function(){
-      return board.subtractRowKnowns(8)
+      // befoe: [6, -, -, 3, -, 8, 9, -, -]
+      board.subtractRowKnowns(8);
     });
 
     it("Will iterate through each cell in the row", function() {
+      assert.equal(board.cells[78].row, 8, "Checked cell is in the checked row.");
+      assert.equal(board.cells[80].row, 8, "Checked cell is in the checked row.");
       assert.deepStrictEqual(board.cells[78].values, [9], "Known values are not altered.");
       assert.deepStrictEqual(board.cells[80].values, [1, 2, 4, 5, 7], "Unknown values are altered.");
+    });
+
+  });
+
+  describe("Subtracts known and unknown values for a whole column", function() {
+
+    beforeEach(function(){
+      // before: [-, 5, 9, 6, -, -, -, 1, -]
+      board.subtractColumnKnowns(8);
+    });
+
+    it("Will iterate through each cell in the column", function() {
+      assert.equal(board.cells[17].column, 8, "Checked cell is in the checked column.");
+      assert.equal(board.cells[8].column, 8, "Checked cell is in the checked column.");
+      assert.deepStrictEqual(board.cells[17].values, [5], "Known values are not altered.");
+      assert.deepStrictEqual(board.cells[8].values, [2, 3, 4, 7, 8], "Unknown values are altered.");
+    });
+
+  });
+
+  describe("Subtracts known and unknown values for a whole grid", function() {
+
+    beforeEach(function(){
+      // before: [8, -, 2, -, 7, 6, 4, -, -]
+      board.subtractGridKnowns(1);
+    });
+
+    it("Will iterate through each cell in the grid", function() {
+      assert.equal(board.cells[3].grid, 1, "Checked cell is in the checked grid.");
+      assert.equal(board.cells[4].grid, 1, "Checked cell is in the checked grid.");
+      assert.deepStrictEqual(board.cells[3].values, [8], "Known values are not altered.");
+      assert.deepStrictEqual(board.cells[4].values, [1, 3, 5, 9], "Unknown values are altered.");
     });
 
   });

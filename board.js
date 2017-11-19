@@ -60,7 +60,7 @@ class Board {
   };
 
   subtractRowKnowns(row) {
-    var that = this
+    var that = this;
     let rowArray = this.cellArrayFromRow(row);
     let knownArray = this.makeKnownArray(rowArray);
     rowArray.forEach((cell) => {
@@ -69,6 +69,29 @@ class Board {
       }
     });
   };
+
+  subtractColumnKnowns(column) {
+    var that = this;
+    let columnArray = this.cellArrayFromColumn(column);
+    let knownArray = this.makeKnownArray(columnArray);
+    columnArray.forEach((cell) => {
+      if (cell.values.length > 1) {
+        cell.values = this.subtractKnowns(knownArray, cell);
+      }
+    });
+  };
+
+  subtractGridKnowns(grid) {
+    var that = this;
+    let gridArray = this.cellArrayFromGrid(grid);
+    let knownArray = this.makeKnownArray(gridArray);
+    gridArray.forEach((cell) => {
+      if (cell.values.length > 1) {
+        cell.values = this.subtractKnowns(knownArray, cell);
+      }
+    });
+  };
+
 };
 
 module.exports = Board;
