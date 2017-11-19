@@ -92,6 +92,12 @@ class Board {
     });
   };
 
+  checkSolved(cellArray) {
+    return this.cells.every((cell) => {
+      return cell.values.length == 1;
+    });
+  };
+
 };
 
 module.exports = Board;
