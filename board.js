@@ -70,6 +70,12 @@ class Board {
     });
   };
 
+  subtractAllRowKnowns() {
+    for(var rowNumber = 0; rowNumber < 9; rowNumber++) {
+      this.subtractRowKnowns(rowNumber);
+    };
+  };
+
   subtractColumnKnowns(column) {
     var that = this;
     let columnArray = this.cellArrayFromColumn(column);
@@ -79,6 +85,12 @@ class Board {
         cell.values = this.subtractKnowns(knownArray, cell);
       }
     });
+  };
+
+  subtractAllColumnKnowns() {
+    for(var columnNumber = 0; columnNumber < 9; columnNumber++) {
+      this.subtractColumnKnowns(columnNumber);
+    };
   };
 
   subtractGridKnowns(grid) {
@@ -92,11 +104,25 @@ class Board {
     });
   };
 
-  checkSolved(cellArray) {
+  subtractAllGridKnowns() {
+    for(var gridNumber = 0; gridNumber < 9; gridNumber++) {
+      this.subtractGridKnowns(gridNumber);
+    };
+  };
+
+  subtractAllKnowns() {
+    this.subtractAllRowKnowns();
+    this.subtractAllColumnKnowns();
+    this.subtractAllGridKnowns();
+  }
+
+  checkSolved() {
     return this.cells.every((cell) => {
       return cell.values.length == 1;
     });
   };
+
+
 
 };
 
