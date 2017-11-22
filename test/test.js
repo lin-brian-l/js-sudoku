@@ -292,11 +292,33 @@ describe("Board", function() {
       assert.equal(board.checkSolved(), false, "Returns false on an unsolved board.");
     });
 
-    it("Will return true on a solved board", function() {
+    it("Will return true on a board with no unknowns", function() {
       fakeBoard = new Board("115812111191176415211411819119117316762183191111161151117611131431121511611318911");
       assert.equal(fakeBoard.checkSolved(), true, "Returns true on a solved board.");
     });
 
+  });
+
+  describe("Prints out the board string", function() {
+    it("Will return the same string as it came in", function() {
+      assert.equal(board.printBoardString(), "1-58-2----9--764-52--4--819-19--73-6762-83-9-----61-5---76---3-43--2-5-16--3-89--", "Returns the same starting string.");
+    });
+  });
+
+  describe("Solves the board", function() {
+
+    beforeEach(function() {
+      board.solveBoard();
+    });
+
+    it("Will generate a board with no unknowns", function() {
+      assert.equal(board.checkSolved(), true, "Generates a board with no unknowns.");
+      assert.equal(board.printBoardString().includes("-"), false, "Generates a board with no '-'.");
+    });
+
+    it("Will generate a solved board", function() {
+      assert.equal(board.printBoardString(), "145892673893176425276435819519247386762583194384961752957614238438729561621358947", "Generates a solved board.");
+    });
   });
 
 // "1-58-2----9--764-52--4--819-19--73-6762-83-9-----61-5---76---3-43--2-5-16--3-89--"

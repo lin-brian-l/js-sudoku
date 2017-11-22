@@ -122,7 +122,23 @@ class Board {
     });
   };
 
+  solveBoard() {
+    while (this.checkSolved() == false) {
+      this.subtractAllKnowns();
+    };
+  };
 
+  printBoardString() {
+    var printedBoardString = "";
+    this.cells.forEach((cell) => {
+      if (cell.values.length == 1) {
+        printedBoardString += cell.values[0].toString();
+      } else {
+        printedBoardString += "-";
+      }
+    });
+    return printedBoardString;
+  }
 
 };
 
