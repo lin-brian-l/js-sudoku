@@ -32,7 +32,7 @@ describe('Cell', function() {
 
 describe("Board", function() {
 
-  beforeEach(function(){
+  beforeEach(function() {
     board = new Board("1-58-2----9--764-52--4--819-19--73-6762-83-9-----61-5---76---3-43--2-5-16--3-89--")
   });
 
@@ -71,7 +71,7 @@ describe("Board", function() {
   describe("Creates an array of cells in the same row", function() {
 
     beforeEach(function(){
-      rowArray = board.cellArrayFromRow(0);
+      rowArray = board.cellArrayFromParameter("row", 0);
     });
 
     it("creates an array of length 9", function() {
@@ -97,7 +97,7 @@ describe("Board", function() {
   describe("Creates an array of cells in the same column", function() {
 
     beforeEach(function(){
-      columnArray = board.cellArrayFromColumn(0);
+      columnArray = board.cellArrayFromParameter("column", 0);
     });
 
     it("creates an array of length 9", function() {
@@ -122,8 +122,8 @@ describe("Board", function() {
 
   describe("Creates an array of cells in the same grid", function() {
 
-    beforeEach(function(){
-      gridArray = board.cellArrayFromGrid(0);
+    beforeEach(function() {
+      gridArray = board.cellArrayFromParameter("grid", 0);
     });
 
     it("creates an array of length 9", function() {
@@ -149,7 +149,7 @@ describe("Board", function() {
   describe("Creates an array of known values for the first row", function() {
 
     beforeEach(function(){
-      rowArray = board.cellArrayFromRow(0);
+      rowArray = board.cellArrayFromParameter("row", 0);
       knownArray = board.makeKnownArray(rowArray)
     });
 
@@ -174,7 +174,7 @@ describe("Board", function() {
   describe("Subtracts known and unknown values for a whole row", function() {
 
     beforeEach(function(){
-      // befoe: [6, -, -, 3, -, 8, 9, -, -]
+      // before: [6, -, -, 3, -, 8, 9, -, -]
       board.subtractRowKnowns(8);
     });
 
@@ -190,7 +190,9 @@ describe("Board", function() {
   describe("Subtracts known and unknown values for all rows", function() {
 
     beforeEach(function(){
-      // "1-58-2----9--764-52--4--819-19--73-6762-83-9-----61-5---76---3-43--2-5-16--3-89--"
+      // board: "1-58-2----9--764-52--4--819-19--73-6762-83-9-----61-5---76---3-43--2-5-16--3-89--"
+      // row 1: "1-58-2---"
+      // row 9: "6--3-89--" 
       board.subtractAllRowKnowns();
     });
 

@@ -25,6 +25,12 @@ class Board {
     return Math.floor(this.determineRow(index) / 3) * 3 + Math.floor(this.determineColumn(index) / 3);
   };
 
+  cellArrayFromParameter(parameter, value) {
+    return this.cells.filter(cell => {
+      return cell[parameter] === value;
+    });
+  };
+
   cellArrayFromRow(row) {
     return this.cells.filter((cell) => {
       return cell.row === row;
@@ -59,9 +65,8 @@ class Board {
     });
   };
 
-  subtractRowKnowns(row) {
-    var that = this;
-    let rowArray = this.cellArrayFromRow(row);
+  subtractRowKnowns(rowNumber) {
+    let rowArray = this.cellArrayFromParameter("row", rowNumber);
     let knownArray = this.makeKnownArray(rowArray);
     rowArray.forEach((cell) => {
       if (cell.values.length > 1) {
