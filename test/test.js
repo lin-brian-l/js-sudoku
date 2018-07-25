@@ -175,7 +175,7 @@ describe("Board", function() {
 
     beforeEach(function(){
       // before: [6, -, -, 3, -, 8, 9, -, -]
-      board.subtractRowKnowns(8);
+      board.subtractParameterKnowns("row", 8);
     });
 
     it("Will iterate through each cell in the row", function() {
@@ -193,7 +193,7 @@ describe("Board", function() {
       // board: "1-58-2----9--764-52--4--819-19--73-6762-83-9-----61-5---76---3-43--2-5-16--3-89--"
       // row 1: "1-58-2---"
       // row 9: "6--3-89--" 
-      board.subtractAllRowKnowns();
+      board.subtractAllParameterKnowns('row');
     });
 
     it("Will iterate through each cell in all rows", function() {
@@ -209,7 +209,7 @@ describe("Board", function() {
 
     beforeEach(function(){
       // before: [-, 5, 9, 6, -, -, -, 1, -]
-      board.subtractColumnKnowns(8);
+      board.subtractParameterKnowns('column', 8);
     });
 
     it("Will iterate through each cell in the column", function() {
@@ -226,7 +226,7 @@ describe("Board", function() {
     beforeEach(function(){
       // Column 1 before: [-, 9, -, 1, 6, -, -, 3, -]
       // Column 8 before: [-, 5, 9, 6, -, -, -, 1, -]
-      board.subtractAllColumnKnowns();
+      board.subtractAllParameterKnowns('column');
     });
 
     it("Will iterate through each cell in all columns", function() {
@@ -242,7 +242,7 @@ describe("Board", function() {
 
     beforeEach(function(){
       // before: [8, -, 2, -, 7, 6, 4, -, -]
-      board.subtractGridKnowns(1);
+      board.subtractParameterKnowns('grid', 1);
     });
 
     it("Will iterate through each cell in the grid", function() {
@@ -259,7 +259,7 @@ describe("Board", function() {
     beforeEach(function(){
       // grid 0 before: [1, -, 5, -, 9, -, 2, -, -]
       // grid 1 before: [8, -, 2, -, 7, 6, 4, -, -]
-      board.subtractAllGridKnowns();
+      board.subtractAllParameterKnowns('grid');
     });
 
     it("Will iterate through each cell in all grids", function() {
@@ -295,7 +295,7 @@ describe("Board", function() {
     });
 
     it("Will return true on a board with no unknowns", function() {
-      fakeBoard = new Board("115812111191176415211411819119117316762183191111161151117611131431121511611318911");
+      fakeBoard = new Board("145892673893176425276435819519247386762583194384961752957614238438729561621358947");
       assert.equal(fakeBoard.checkSolved(), true, "Returns true on a solved board.");
     });
 

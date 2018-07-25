@@ -2,27 +2,36 @@ const Cell = require("./cell.js")
 
 class Board {
   constructor(boardString) {
-    this.cells = []
-    var boardArray = boardString.split("")
-    boardArray.forEach((value, index) => {
-      let cellRow = this.determineRow(index);
-      let cellColumn = this.determineColumn(index);
-      let cellGrid = this.determineGrid(index);
-      let cell = new Cell(cellRow, cellColumn, cellGrid, value);
-      this.cells.push(cell);
+    // this.cells = []
+    // var boardArray = boardString.split("")
+    // boardArray.forEach((cellValue, cellPosition) => {
+    //   let cellRow = this.determineRow(cellPosition);
+    //   let cellColumn = this.determineColumn(cellPosition);
+    //   let cellGrid = this.determineGrid(cellPosition);
+    //   let cell = new Cell(cellRow, cellColumn, cellGrid, cellValue);
+    //   this.cells.push(cell);
+    // });
+
+    let boardArray = boardString.split("")
+    this.cells = boardArray.map((cellValue, cellPosition) => {
+      let cellRow = this.determineRow(cellPosition);
+      let cellColumn = this.determineColumn(cellPosition);
+      let cellGrid = this.determineGrid(cellPosition);
+      return new Cell(cellRow, cellColumn, cellGrid, cellValue);
     });
+
   };
 
-  determineRow(index) {
-    return Math.floor(index / 9);
+  determineRow(cellPosition) {
+    return Math.floor(cellPosition / 9);
   };
 
-  determineColumn(index) {
-    return Math.floor(index % 9);
+  determineColumn(cellPosition) {
+    return Math.floor(cellPosition % 9);
   };
 
-  determineGrid(index) {
-    return Math.floor(this.determineRow(index) / 3) * 3 + Math.floor(this.determineColumn(index) / 3);
+  determineGrid(cellPosition) {
+    return Math.floor(this.determineRow(cellPosition) / 3) * 3 + Math.floor(this.determineColumn(cellPosition) / 3);
   };
 
   cellArrayFromParameter(parameter, value) {
@@ -31,27 +40,9 @@ class Board {
     });
   };
 
-  cellArrayFromRow(row) {
-    return this.cells.filter((cell) => {
-      return cell.row === row;
-    });
-  };
-
-  cellArrayFromColumn(column) {
-    return this.cells.filter((cell) => {
-      return cell.column === column;
-    });
-  };
-
-  cellArrayFromGrid(grid) {
-    return this.cells.filter((cell) => {
-      return cell.grid === grid;
-    });
-  };
-
-  makeKnownArray(array) {
+  makeKnownArray(cellArray) {
     let knownArray = [];
-    array.forEach((cell) => {
+    cellArray.forEach(cell => {
       if (cell.values.length === 1) {
         knownArray = knownArray.concat(cell.values);
       }
@@ -60,65 +51,31 @@ class Board {
   };
 
   subtractKnowns(knownArray, cell) {
-    return cell.values.filter((value) => {
+    return cell.values.filter(value => {
       return knownArray.indexOf(value) < 0;
     });
   };
 
-  subtractRowKnowns(rowNumber) {
-    let rowArray = this.cellArrayFromParameter("row", rowNumber);
-    let knownArray = this.makeKnownArray(rowArray);
-    rowArray.forEach((cell) => {
+  subtractParameterKnowns(parameter, paramNumber) {
+    let paramArray = this.cellArrayFromParameter(parameter, paramNumber);
+    let knownArray = this.makeKnownArray(paramArray);
+    paramArray.forEach(cell => {
       if (cell.values.length > 1) {
         cell.values = this.subtractKnowns(knownArray, cell);
-      }
+      };
     });
   };
 
-  subtractAllRowKnowns() {
-    for(var rowNumber = 0; rowNumber < 9; rowNumber++) {
-      this.subtractRowKnowns(rowNumber);
-    };
-  };
-
-  subtractColumnKnowns(column) {
-    var that = this;
-    let columnArray = this.cellArrayFromColumn(column);
-    let knownArray = this.makeKnownArray(columnArray);
-    columnArray.forEach((cell) => {
-      if (cell.values.length > 1) {
-        cell.values = this.subtractKnowns(knownArray, cell);
-      }
-    });
-  };
-
-  subtractAllColumnKnowns() {
-    for(var columnNumber = 0; columnNumber < 9; columnNumber++) {
-      this.subtractColumnKnowns(columnNumber);
-    };
-  };
-
-  subtractGridKnowns(grid) {
-    var that = this;
-    let gridArray = this.cellArrayFromGrid(grid);
-    let knownArray = this.makeKnownArray(gridArray);
-    gridArray.forEach((cell) => {
-      if (cell.values.length > 1) {
-        cell.values = this.subtractKnowns(knownArray, cell);
-      }
-    });
-  };
-
-  subtractAllGridKnowns() {
-    for(var gridNumber = 0; gridNumber < 9; gridNumber++) {
-      this.subtractGridKnowns(gridNumber);
-    };
-  };
+  subtractAllParameterKnowns(parameter) {
+    for (var paramNumber = 0; paramNumber < 9; paramNumber++) {
+      this.subtractParameterKnowns(parameter, paramNumber);
+    }
+  }
 
   subtractAllKnowns() {
-    this.subtractAllRowKnowns();
-    this.subtractAllColumnKnowns();
-    this.subtractAllGridKnowns();
+    this.subtractAllParameterKnowns('row');
+    this.subtractAllParameterKnowns('column');
+    this.subtractAllParameterKnowns('grid');
   }
 
   checkSolved() {
@@ -134,15 +91,14 @@ class Board {
   };
 
   printBoardString() {
-    var printedBoardString = "";
-    this.cells.forEach((cell) => {
-      if (cell.values.length == 1) {
-        printedBoardString += cell.values[0].toString();
-      } else {
-        printedBoardString += "-";
+    let filterCellValues = function(cell) {
+      if (cell.values.length === 1) {
+        return cell.values[0];
       }
-    });
-    return printedBoardString;
+      return "-";
+    }
+
+    return this.cells.map(filterCellValues).join('');
   }
 
 };
