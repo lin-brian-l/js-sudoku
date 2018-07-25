@@ -1,7 +1,7 @@
 // Run with "yarn run test"
 
-const Cell = require("../cell.js");
-const Board = require("../board.js");
+const Cell = require("../models/cell.js");
+const Board = require("../models/board.js");
 const assert = require("assert");
 
 describe('Cell', () => {
