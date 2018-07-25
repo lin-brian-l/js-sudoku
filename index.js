@@ -1,5 +1,7 @@
 $(document).ready(() => {
 	createBoard();
+
+	$('input').on('')
 })
 
 let createBoard = () => {
