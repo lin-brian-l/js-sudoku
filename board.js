@@ -2,15 +2,6 @@ const Cell = require("./cell.js")
 
 class Board {
   constructor(boardString) {
-    // this.cells = []
-    // var boardArray = boardString.split("")
-    // boardArray.forEach((cellValue, cellPosition) => {
-    //   let cellRow = this.determineRow(cellPosition);
-    //   let cellColumn = this.determineColumn(cellPosition);
-    //   let cellGrid = this.determineGrid(cellPosition);
-    //   let cell = new Cell(cellRow, cellColumn, cellGrid, cellValue);
-    //   this.cells.push(cell);
-    // });
 
     let boardArray = boardString.split("")
     this.cells = boardArray.map((cellValue, cellPosition) => {
