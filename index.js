@@ -7,8 +7,9 @@ let createBoard = () => {
 		let divClass = 'cell';
 		if (rightBolded(cell)) divClass += ' right-bold';
 		if (bottomBolded(cell)) divClass += ' bottom-bold';
-		let inputElement = `<input type='text' name='input${cell}'></input>`;
-		$(".board").append(`<div id='${cell}' class='${divClass}'>${inputElement}</div>`);	
+		let inputElement = `<input type='text' name='input${cell}' maxlength='1'></input>`;
+		let divElement = `<div id='${cell}' class='${divClass}'>${inputElement}</div>`;
+		$(".board").append(divElement);	
 	}
 }
 
