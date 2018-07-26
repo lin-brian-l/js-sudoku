@@ -1,9 +1,15 @@
+// import { Board } from "models/board.js";
+
 $(document).ready(() => {
+	$.getScript("models/board.js", function() {
+		console.log("script loaded");
+	})
+
 	createBoard();
 
 	$('input').keypress(validateInput);
 
-	$('button').click(createBoardString);
+	$('button').click(initiateSolveBoard);
 })
 
 let validateInput = (event) => {
@@ -12,14 +18,25 @@ let validateInput = (event) => {
 }
 
 let createBoard = () => {
+	let boardString = '1-58-2----9--764-52--4--819-19--73-6762-83-9-----61-5---76---3-43--2-5-16--3-89--';
 	for (var cell = 0; cell < 81; cell++) {
 		let divClass = 'cell';
 		if (rightBoldedCheck(cell)) divClass += ' right-bold';
 		if (bottomBoldedCheck(cell)) divClass += ' bottom-bold';
-		let inputElement = `<input type='text' name='input${cell}' maxlength='1'></input>`;
+		let inputValue = boardString[cell] === '-' ? "" : boardString[cell];
+		let inputElement = `<input type='text' name='input${cell}' maxlength='1' value='${inputValue}'></input>`;
 		let divElement = `<div id='${cell}' class='${divClass}'>${inputElement}</div>`;
 		$(".board").append(divElement);	
-	}
+	}	
+
+	// for (var cell = 0; cell < 81; cell++) {
+	// 	let divClass = 'cell';
+	// 	if (rightBoldedCheck(cell)) divClass += ' right-bold';
+	// 	if (bottomBoldedCheck(cell)) divClass += ' bottom-bold';
+	// 	let inputElement = `<input type='text' name='input${cell}' maxlength='1'></input>`;
+	// 	let divElement = `<div id='${cell}' class='${divClass}'>${inputElement}</div>`;
+	// 	$(".board").append(divElement);	
+	// }
 }
 
 let rightBoldedCheck = (cell) => {
@@ -30,10 +47,17 @@ let bottomBoldedCheck = (cell) => {
 	return Math.ceil((cell + 1) / 9 ) % 3 === 0 && Math.ceil((cell + 1) / 9 ) < 9;
 }
 
-let createBoardString = (event) => {
+let initiateSolveBoard = () => {
+	let boardString = createBoardString();
+	let board = new Board(boardString);
+	board.solveBoard();
+	board.printBoardString();
+}
+
+let createBoardString = () => {
 	let boardString = "";
 	$('input').each((index, input) => {
 		boardString += $(input).val() || "-";
 	});
-	console.log("boardString: " + boardString);
+	return boardString;
 }

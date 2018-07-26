@@ -1,5 +1,3 @@
-const Cell = require("./cell.js")
-
 class Board {
   constructor(boardString) {
 
@@ -76,7 +74,7 @@ class Board {
   };
 
   solveBoard() {
-    while (this.checkSolved() == false) {
+    while (!this.checkSolved()) {
       this.subtractAllKnowns();
     };
   };
@@ -88,7 +86,6 @@ class Board {
       }
       return "-";
     }
-
     return this.cells.map(filterCellValues).join('');
   }
 
