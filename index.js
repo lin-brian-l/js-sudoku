@@ -1,10 +1,6 @@
-// import { Board } from "models/board.js";
+// const Board = require('models/board.js');
 
 $(document).ready(() => {
-	$.getScript("models/board.js", function() {
-		console.log("script loaded");
-	})
-
 	createBoard();
 
 	$('input').keypress(validateInput);
@@ -51,7 +47,8 @@ let initiateSolveBoard = () => {
 	let boardString = createBoardString();
 	let board = new Board(boardString);
 	board.solveBoard();
-	board.printBoardString();
+	let solvedBoard = board.printBoardString();
+	fillBoardSolution(solvedBoard);
 }
 
 let createBoardString = () => {
@@ -60,4 +57,10 @@ let createBoardString = () => {
 		boardString += $(input).val() || "-";
 	});
 	return boardString;
+}
+
+let fillBoardSolution = (solvedBoard) => {
+	$('input').each((index, input) => {
+		$(input).val(solvedBoard[index]);
+	});
 }
