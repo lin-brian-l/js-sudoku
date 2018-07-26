@@ -16,12 +16,13 @@
 		<div class="board"></div>
 	</div>
 	<div class="button-container">
-		<button type="button">Solve</button>
+		<button id="solve-button" type="button">Solve</button>
 	</div>
 	<div class="input-container">
 		<span class='input-span'>Type in the numbers for the sudoku board. Use "-" or " " for blank cells.</span>
 		<br><br>
-		<input class="board-input" type="text">
+		<input class="board-input" maxlength="81" type="text">
+		<button id="input-button" type='button'>Use Input</button>
 	</div>
 </body>
 </html>

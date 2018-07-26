@@ -56,12 +56,17 @@ button {
 .input-container {
 	margin-top: 3%;
 	text-align: center;
+	margin-bottom: 10%;
 }
 
 .input-span {
-
 }
 
 .board-input {
-	width: 50%;
+	width: 90%;
+	text-align: center;
+}
+
+#input-button {
+	margin-top: 3%;
 }

@@ -3,7 +3,9 @@ $(document).ready(() => {
 
 	$('input').keypress(validateInput);
 
-	$('button').click(initiateSolveBoard);
+	$('#solve-button').click(initiateSolveBoard);
+
+	$('#input-button').click(initiateFillBoard);
 })
 
 let validateInput = (event) => {
@@ -14,25 +16,14 @@ let validateInput = (event) => {
 }
 
 let createBoard = () => {
-	let boardString = '1-58-2----9--764-52--4--819-19--73-6762-83-9-----61-5---76---3-43--2-5-16--3-89--';
 	for (var cell = 0; cell < 81; cell++) {
 		let divClass = 'cell';
 		if (rightBoldedCheck(cell)) divClass += ' right-bold';
 		if (bottomBoldedCheck(cell)) divClass += ' bottom-bold';
-		let inputValue = boardString[cell] === '-' ? "" : boardString[cell];
-		let inputElement = `<input class='cell-input' type='text' name='input${cell}' maxlength='1' value='${inputValue}'></input>`;
+		let inputElement = `<input class='cell-input' type='text' name='input${cell}' maxlength='1'>`;
 		let divElement = `<div id='${cell}' class='${divClass}'>${inputElement}</div>`;
 		$(".board").append(divElement);	
-	}	
-
-	// for (var cell = 0; cell < 81; cell++) {
-	// 	let divClass = 'cell';
-	// 	if (rightBoldedCheck(cell)) divClass += ' right-bold';
-	// 	if (bottomBoldedCheck(cell)) divClass += ' bottom-bold';
-	// 	let inputElement = `<input class='cell-input' type='text' name='input${cell}' maxlength='1'></input>`;
-	// 	let divElement = `<div id='${cell}' class='${divClass}'>${inputElement}</div>`;
-	// 	$(".board").append(divElement);	
-	// }
+	}
 }
 
 let rightBoldedCheck = (cell) => {
@@ -48,19 +39,25 @@ let initiateSolveBoard = () => {
 	let board = new Board(boardString);
 	board.solveBoard();
 	let solvedBoard = board.printBoardString();
-	fillBoardSolution(solvedBoard);
+	fillBoard(solvedBoard);
 }
 
 let createBoardString = () => {
 	let boardString = "";
-	$('input').each((index, input) => {
+	$('.cell-input').each((index, input) => {
 		boardString += $(input).val() || "-";
 	});
 	return boardString;
 }
 
-let fillBoardSolution = (solvedBoard) => {
-	$('input').each((index, input) => {
-		$(input).val(solvedBoard[index]);
+let initiateFillBoard = () => {
+	let boardString = $('.board-input').val();
+	fillBoard(boardString);
+}
+
+let fillBoard = (solvedBoard) => {
+	$('.cell-input').each((index, input) => {
+		let inputValue = /[1-9]/.test(solvedBoard[index]) ? solvedBoard[index] : "";
+		$(input).val(inputValue);
 	});
 }
