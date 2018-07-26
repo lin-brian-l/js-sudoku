@@ -1,5 +1,3 @@
-// const Board = require('models/board.js');
-
 $(document).ready(() => {
 	createBoard();
 
@@ -9,8 +7,10 @@ $(document).ready(() => {
 })
 
 let validateInput = (event) => {
+	let targetClass = $(event.target).attr('class');
+	let regexTest = targetClass === 'cell-input' ? /[1-9]/ : /[0-9]|[-]|[ ]/;
 	let text = String.fromCharCode(event.which);
-	return /[1-9]/.test(text);	
+	return regexTest.test(text);	
 }
 
 let createBoard = () => {
@@ -20,7 +20,7 @@ let createBoard = () => {
 		if (rightBoldedCheck(cell)) divClass += ' right-bold';
 		if (bottomBoldedCheck(cell)) divClass += ' bottom-bold';
 		let inputValue = boardString[cell] === '-' ? "" : boardString[cell];
-		let inputElement = `<input type='text' name='input${cell}' maxlength='1' value='${inputValue}'></input>`;
+		let inputElement = `<input class='cell-input' type='text' name='input${cell}' maxlength='1' value='${inputValue}'></input>`;
 		let divElement = `<div id='${cell}' class='${divClass}'>${inputElement}</div>`;
 		$(".board").append(divElement);	
 	}	
@@ -29,7 +29,7 @@ let createBoard = () => {
 	// 	let divClass = 'cell';
 	// 	if (rightBoldedCheck(cell)) divClass += ' right-bold';
 	// 	if (bottomBoldedCheck(cell)) divClass += ' bottom-bold';
-	// 	let inputElement = `<input type='text' name='input${cell}' maxlength='1'></input>`;
+	// 	let inputElement = `<input class='cell-input' type='text' name='input${cell}' maxlength='1'></input>`;
 	// 	let divElement = `<div id='${cell}' class='${divClass}'>${inputElement}</div>`;
 	// 	$(".board").append(divElement);	
 	// }

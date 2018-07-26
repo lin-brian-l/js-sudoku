@@ -7,9 +7,8 @@
 	<script src="../index.js"></script>
 	<script src="../bundle.js"></script>
 	<script>
-		var Board = require('Board');
+		const Board = require('Board');
 	</script>
-	<!-- <script src="../models/board.js"></script> -->
 </head>
 <body>
 	<h1>Sudoku</h1>
@@ -18,6 +17,11 @@
 	</div>
 	<div class="button-container">
 		<button type="button">Solve</button>
+	</div>
+	<div class="input-container">
+		<span class='input-span'>Type in the numbers for the sudoku board. Use "-" or " " for blank cells.</span>
+		<br><br>
+		<input class="board-input" type="text">
 	</div>
 </body>
 </html>
